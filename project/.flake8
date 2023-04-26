@@ -1,0 +1,12 @@
+[flake8]
+max-line-length=120
+max-complexity=5
+ignore=
+  F401,
+  W503,
+exclude=
+  __init__.py,
+  manage.py,
+  migrations,
+  venv,
+  .venv,
