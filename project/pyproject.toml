@@ -12,7 +12,8 @@ Django = "^4.2"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "^6.0.0"
+black = "^23.3.0"
 
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core>=1.4.2"]
 build-backend = "poetry.core.masonry.api"

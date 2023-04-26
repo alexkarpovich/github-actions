@@ -4,7 +4,6 @@ services:
   web:
     build:
       context: ./project
-      dockerfile: Dockerfile
     environment:
       POSTGRES_DB: postgres
       POSTGRES_USER: postgres

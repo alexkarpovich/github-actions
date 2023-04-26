@@ -1,10 +1,25 @@
-name: Lint app
+name: Test app
 
 on: pull_request
 
 jobs:
-  Lint:
+  Test:
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        image: postgres:14-alpine
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     
     steps:
       - uses: actions/checkout@v2
@@ -34,10 +49,14 @@ jobs:
         working-directory: ./project
         run: poetry install --no-root
 
-      - name: Run black
+      - name: Run tests
         working-directory: ./project
-        run: poetry run black .
-
-      - name: Run flake8
-        working-directory: ./project
-        run: poetry run flake8 .
+        env:
+          SECRET_KEY: "super-mega-fake-secret"
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+          POSTGRES_HOST: localhost
+        run: |
+          poetry run python manage.py migrate
+          poetry run python manage.py test
