@@ -31,10 +31,13 @@ jobs:
 
       - name: Install dependencies
         if: steps.cache.outputs.cache-hit != true
+        working-directory: ./project
         run: poetry install
 
       - name: Run black
+        working-directory: ./project
         run: poetry run black .
 
       - name: Run flake8
+        working-directory: ./project
         run: poetry run flake8 .
