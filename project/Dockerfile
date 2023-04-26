@@ -9,14 +9,11 @@ RUN apt-get update \
   && apt-get install gcc libpq-dev python3-dev \
   --no-install-recommends -y
 
-RUN python -m venv .venv \
-  && . .venv/bin/activate \
-  && pip install --upgrade pip \
+RUN pip install --upgrade pip \
   && pip install poetry
 
 COPY pyproject.toml poetry.lock ./
 
-RUN . .venv/bin/activate \
-  && poetry config virtualenvs.create false \
+RUN poetry config virtualenvs.create false \
   && poetry install --no-root --no-dev
 
