@@ -32,7 +32,7 @@ jobs:
       - name: Install dependencies
         if: steps.cache.outputs.cache-hit != true
         working-directory: ./project
-        run: poetry install
+        run: poetry install --no-root
 
       - name: Run black
         working-directory: ./project
