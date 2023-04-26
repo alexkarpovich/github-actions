@@ -3,7 +3,8 @@ version: "3.7"
 services:
   web:
     build:
-      context: .
+      context: ./project
+      dockerfile: Dockerfile
     environment:
       POSTGRES_DB: postgres
       POSTGRES_USER: postgres

@@ -11,10 +11,12 @@ RUN apt-get update \
 
 RUN python -m venv .venv \
   && . .venv/bin/activate \
-  && pip install --upgrade pip
+  && pip install --upgrade pip \
+  && pip install poetry
 
-COPY ./requirements.txt requirements.txt
+COPY pyproject.toml poetry.lock ./
 
-RUN pip install -r requirements.txt
-
+RUN . .venv/bin/activate \
+  && poetry config virtualenvs.create false \
+  && poetry install --no-root --no-dev
 
